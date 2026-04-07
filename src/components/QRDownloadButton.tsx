@@ -1,11 +1,13 @@
 import type { RefObject } from 'react';
+import styles from '../styles/QRDownloadButton.module.css';
 
 interface QRDownloadButtonProps {
   qrRef: RefObject<HTMLDivElement | null>;
   inputValue: string;
+  titleValue: string;
 }
 
-export default function QRDownloadButton({ qrRef, inputValue }: QRDownloadButtonProps) {
+export default function QRDownloadButton({ qrRef, inputValue, titleValue }: QRDownloadButtonProps) {
   const handleDownload = () => {
     const svg = qrRef.current?.querySelector('svg') as SVGSVGElement;
     if (!svg) return;
@@ -15,18 +17,36 @@ export default function QRDownloadButton({ qrRef, inputValue }: QRDownloadButton
     if (!ctx) return;
 
     const rect = svg.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
+    const PADDING = 20;
+    const FONT_SIZE = 18;
+    const TITLE_HEIGHT = titleValue ? FONT_SIZE + PADDING * 1.5 : 0;
+
+    canvas.width = rect.width + PADDING * 2;
+    canvas.height = rect.height + TITLE_HEIGHT + PADDING * 2;
 
     const data = new XMLSerializer().serializeToString(svg);
     const img = new Image();
     img.onload = () => {
-      ctx.drawImage(img, 0, 0);
+      // White background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Title text
+      if (titleValue) {
+        ctx.fillStyle = '#18181b';
+        ctx.font = `bold ${FONT_SIZE}px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.direction = 'rtl';
+        ctx.fillText(titleValue, canvas.width / 2, PADDING + FONT_SIZE);
+      }
+
+      // QR code
+      ctx.drawImage(img, PADDING, TITLE_HEIGHT + PADDING);
+
       const url = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = url;
 
-      // Create filename from input value (sanitized)
       const sanitizedValue = inputValue
         .replace(/[^a-z0-9]/gi, '-')
         .replace(/-+/g, '-')
@@ -38,12 +58,12 @@ export default function QRDownloadButton({ qrRef, inputValue }: QRDownloadButton
       link.click();
       document.body.removeChild(link);
     };
-    img.src = 'data:image/svg+xml;base64,' + btoa(data);
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(data);
   };
 
   return (
-    <button onClick={handleDownload} className="download-button">
-      ↓ Download as PNG
+    <button onClick={handleDownload} className={styles.downloadButton}>
+      ↓ تنزيل كصورة PNG
     </button>
   );
 }

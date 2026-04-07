@@ -1,0 +1,30 @@
+.downloadButton {
+  padding: 0.65rem 1.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px var(--primary-shadow);
+  font-family: inherit;
+}
+
+.downloadButton:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--primary-shadow-hover);
+}
+
+.downloadButton:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 560px) {
+  .downloadButton {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}

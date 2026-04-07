@@ -1,49 +1,62 @@
-import { useState, useRef } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
-import QRDownloadButton from './QRDownloadButton';
-import '../styles/QRGenerator.css';
+import { useState, useRef } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import QRDownloadButton from "./QRDownloadButton";
+import styles from "../styles/QRGenerator.module.css";
 
 export default function QRGenerator() {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
+  const [titleValue, setTitleValue] = useState("");
   const qrRef = useRef<HTMLDivElement | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
   return (
-    <div className="qr-container">
-      <h1>QR Code Generator</h1>
-      <p className="subtitle">Convert any text or URL into a QR code instantly</p>
+    <div className={styles.qrContainer}>
+      <h1>منشئ رمز QR</h1>
+      <p className={styles.subtitle}>حوّل أي نص أو رابط إلى رمز QR فوراً</p>
 
-      <div className="input-section">
+      <div className={styles.inputSection}>
+        <input
+          type="text"
+          value={titleValue}
+          onChange={(e) => setTitleValue(e.target.value)}
+          placeholder="عنوان الصورة (اختياري)"
+          className={styles.qrInput}
+        />
+      </div>
+
+      <div className={styles.inputSection}>
         <input
           type="text"
           value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Enter text or URL..."
-          className="qr-input"
+          dir="ltr"
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="أدخل نصاً أو رابطاً..."
+          className={styles.qrInput}
           autoFocus
         />
       </div>
 
-      <div className="qr-display-section">
+      <div className={styles.qrDisplaySection}>
         {inputValue && (
           <>
-            <div className="qr-code-wrapper" ref={qrRef}>
+            <div className={styles.qrCodeWrapper} ref={qrRef}>
+              {titleValue && <p className={styles.qrTitle}>{titleValue}</p>}
               <QRCodeSVG
                 value={inputValue}
                 size={256}
                 level="H"
-                includeMargin={true}
+                marginSize={4}
               />
             </div>
-            <QRDownloadButton qrRef={qrRef} inputValue={inputValue} />
+            <QRDownloadButton
+              qrRef={qrRef}
+              inputValue={inputValue}
+              titleValue={titleValue}
+            />
           </>
         )}
         {!inputValue && (
-          <div className="empty-state">
-            <p>Enter text or URL above to generate a QR code</p>
+          <div className={styles.emptyState}>
+            <p>أدخل نصاً أو رابطاً أعلاه لإنشاء رمز QR</p>
           </div>
         )}
       </div>

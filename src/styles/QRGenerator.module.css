@@ -1,0 +1,103 @@
+.qrContainer {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  max-width: 520px;
+  width: 100%;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.qrContainer h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0 0 2rem 0;
+}
+
+.inputSection {
+  margin-bottom: 2rem;
+}
+
+.qrInput {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1.5px solid var(--input-border);
+  border-radius: 8px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+  text-align: center;
+}
+
+.qrInput:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--input-shadow-focus);
+}
+
+.qrInput::placeholder {
+  color: var(--placeholder);
+}
+
+.qrDisplaySection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 300px;
+  justify-content: center;
+}
+
+.qrCodeWrapper {
+  padding: 1.25rem;
+  background: var(--qr-bg);
+  border-radius: 12px;
+  box-shadow: var(--qr-shadow);
+  display: inline-block;
+}
+
+.qrCodeWrapper canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.qrTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #18181b;
+  margin: 0 0 0.75rem 0;
+  text-align: center;
+}
+
+.emptyState {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 560px) {
+  .qrContainer {
+    padding: 2rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  .qrContainer h1 {
+    font-size: 1.5rem;
+  }
+
+  .qrCodeWrapper {
+    padding: 1rem;
+  }
+}
