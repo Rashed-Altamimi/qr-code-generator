@@ -1,0 +1,74 @@
+.fileSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.signInButton {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1.5px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.signInButton:hover {
+  border-color: var(--primary);
+}
+
+.fileLabel {
+  display: block;
+  padding: 0.9rem 1rem;
+  background: var(--input-bg);
+  color: var(--text);
+  border: 1.5px dashed var(--input-border);
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.fileLabel:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.fileLink {
+  font-size: 0.85rem;
+  text-align: center;
+  margin: 0;
+}
+
+.fileLink a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.fileLink a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  margin: 0;
+  text-align: center;
+}
